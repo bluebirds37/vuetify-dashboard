@@ -77,7 +77,7 @@ export default {
       showCropper: false,
       form: {
         avatar: `${require("@/static/logo/cat.png")}`,
-        phone: 18623005316,
+        phone: "186****5316",
         nickname: "123",
         roleName: "123",
         createdTime: "2021-10-10 12:12",
