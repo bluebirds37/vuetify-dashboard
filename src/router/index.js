@@ -1,22 +1,57 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: "/login",
+  }, {
+    path: '/login',
+    name: 'Login',
+    component: () => import("@/views/pages/Login"),
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/admin',
+    name: 'Admin',
+    component: () => import("@/views/layouts/Admin"),
+    redirect: "/admin/dashboard",
+    children: [{
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import("@/views/pages/Dashboard"),
+      },
+      {
+        path: 'user',
+        name: 'User',
+        component: () => import("@/views/layouts/Default"),
+        children: [{
+            path: 'list',
+            name: 'UserList',
+            component: () => import("@/views/pages/user/List"),
+          },
+          {
+            path: 'add',
+            name: 'UserAdd',
+            component: () => import("@/views/pages/user/Add"),
+          },
+        ]
+      },
+      {
+        path: 'theme',
+        name: 'Theme',
+        component: () => import("@/views/pages/Theme"),
+      },
+
+    ]
+  },
+  {
+    path: "/404",
+    name: "404",
+    component: () => import("@/views/error/404"),
+  }, {
+    path: "*",
+    redirect: "/404"
   }
 ]
 
