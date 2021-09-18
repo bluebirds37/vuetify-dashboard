@@ -35,6 +35,16 @@ const routes = [{
             name: 'UserAdd',
             component: () => import("@/views/pages/user/Add"),
           },
+          {
+            path: 'edit',
+            name: 'UserEdit',
+            component: () => import("@/views/pages/user/Edit"),
+          },
+          {
+            path: 'detail',
+            name: 'UserDetail',
+            component: () => import("@/views/pages/user/Detail"),
+          },
         ]
       },
       {

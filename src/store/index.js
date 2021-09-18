@@ -27,20 +27,30 @@ const state = {
   headTitle: '',
   mini: false,
   menuItems: [{
-      title: "Dashboard",
+      title: "数据看版",
       icon: "mdi-view-dashboard",
       to: "/admin/dashboard",
     },
     {
-      title: "用户管理",
+      title: "系统账号",
       icon: "mdi-account",
       items: [{
-        title: "用户列表",
-        to: "/admin/user/list",
-      }, {
-        title: "用户添加",
-        to: "/admin/user/add",
-      }]
+        title: "用户管理",
+        icon: "mdi-account-box-multiple-outline",
+        items: [{
+          title: "用户列表",
+          to: "/admin/user/list",
+        }, {
+          title: "用户添加",
+          to: "/admin/user/add",
+        }, {
+          title: "用户详情",
+          to: "/admin/user/detail",
+        }, {
+          title: "用户编辑",
+          to: "/admin/user/edit",
+        }]
+      }, ]
     },
     {
       title: "主题设置",

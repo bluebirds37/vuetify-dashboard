@@ -18,11 +18,7 @@
           <v-list-item-icon>主题颜色:</v-list-item-icon>
           <v-list-item-action>
             <v-row align="center">
-              <v-avatar
-                :color="themeColor"
-                class="color-item"
-                size="25"
-              />
+              <v-avatar :color="themeColor" class="color-item" size="25" />
               <v-btn class="ml-4" text small @click="showPickColor('Theme')"
                 >选取颜色</v-btn
               >
@@ -46,11 +42,7 @@
           <v-list-item-icon>顶栏颜色:</v-list-item-icon>
           <v-list-item-action>
             <v-row align="center">
-              <v-avatar
-                :color="headerColor"
-                class="color-item"
-                size="25"
-              />
+              <v-avatar :color="headerColor" class="color-item" size="25" />
               <v-btn class="ml-4" text small @click="showPickColor('Header')"
                 >选取颜色</v-btn
               >
@@ -59,10 +51,14 @@
         </v-list-item>
       </v-list>
     </v-card-text>
-    <v-dialog :value="pickColorDialogStatus" max-width="360">
+    <v-dialog
+      :value="pickColorDialogStatus"
+      max-width="360"
+      persistent
+    >
       <v-card>
         <v-card-title
-          ><v-row justify="center"
+          ><v-row justify="center" class="pb-5 pt-2"
             >选择{{ pickTarget }}颜色</v-row
           ></v-card-title
         >
@@ -77,7 +73,7 @@
             ></v-color-picker>
           </v-row>
         </v-card-text>
-        <v-card-actions class="pb-5">
+        <v-card-actions class="pb-8">
           <v-row justify="space-around"
             ><v-btn @click="pickColor">选中</v-btn
             ><v-btn @click="pickColorDialogStatus = !pickColorDialogStatus"

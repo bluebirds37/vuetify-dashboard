@@ -1,5 +1,6 @@
 <template>
   <v-card class="fill-height ml-2 mt-2 mr-2">
+    <default-go-back />
     <v-card-title><v-row justify="center">添加用户</v-row></v-card-title>
     <v-card-text>
       <v-container class="fill-height">
@@ -66,15 +67,7 @@
                       class="purple-input"
                     />
                   </v-col>
-                  <v-col md="6" cols="12">
-                    <v-text-field
-                      v-model="form.username"
-                      hint="用户名不能包含空格和特殊字符"
-                      class="purple-input"
-                      label="用户名*"
-                      required
-                    />
-                  </v-col>
+
                   <v-col md="6" cols="12">
                     <v-text-field
                       v-model="form.password"
@@ -129,6 +122,10 @@
 
 <script>
 export default {
+  name: "UserAdd",
+  components: {
+    DefaultGoBack: () => import("@/components/widgets/GoBack"),
+  },
   computed: {
     option() {
       return {
@@ -140,8 +137,6 @@ export default {
         autoCrop: true, // 是否默认生成截图框
         canMoveBox: true, // 截图框能否拖动
         centerBox: true, // 截图框能否拖动
-        fixed: true, // 是否开启截图框宽高固定比例
-        fixedNumber: [4, 4], // 截图框的宽高比例
       };
     },
   },
@@ -154,12 +149,47 @@ export default {
     };
   },
   methods: {
+    fileChange(e) {
+      // 上传图片
+      // this.option.img
+      const file = e.target.files[0];
+      if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
+        alert("图片类型必须是.gif,jpeg,jpg,png,bmp中的一种");
+        return false;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        let data;
+        if (typeof e.target.result === "object") {
+          // 把Array Buffer转化为blob 如果是base64不需要
+          data = window.URL.createObjectURL(new Blob([e.target.result]));
+        } else {
+          data = e.target.result;
+        }
+        this.option.img = data;
+        this.showCropper = true;
+      };
+      // 转化为base64
+      // reader.readAsDataURL(file)
+      // 转化为blob
+      reader.readAsArrayBuffer(file);
+    },
     cropCancel() {
       this.showCropper = false;
       this.$refs.avator.value = "";
     },
     cropSubmit() {
       this.showCropper = false;
+      console.log("开始上传");
+      this.uploadAvatar();
+    },
+    uploadAvatar() {
+      this.$refs.cropper.getCropBlob((data) => {
+        console.log(data);
+        const file = data;
+        const param = new FormData();
+        param.append("file", file);
+      });
     },
   },
 };
